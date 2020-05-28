@@ -131,10 +131,11 @@ namespace HexConverter
         }
         
         /// <summary>
-        /// Get hexadecimal chars from bytes source. Allowing buffering for high-performance code.
+        /// Get hexadecimal chars from bytes source using ArrayPool to avoid allocations.
+
         /// </summary>
         /// <param name="source"></param>
-        /// <returns></returns>
+        /// <returns>Chars on a disposable wrapper to return to array to the pool when dispose</returns>
         /// <exception cref="HexConverterInvalidSourceLengthException"></exception>
         public static RentedArraySegmentWrapper<char> GetHexPooled(ReadOnlySpan<byte> source)
         {
@@ -149,11 +150,11 @@ namespace HexConverter
         }
 
         /// <summary>
-        /// Get hexadecimal chars from bytes source using ArrayPool to avoid allocations.
+        /// Get hexadecimal chars from bytes source. Allowing buffering for high-performance code.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="buffer"></param>
-        /// <returns>Chars on a disposable wrapper to return to array to the pool when dispose</returns>
+        /// <returns></returns>
         /// <exception cref="HexConverterInvalidSourceLengthException"></exception>
         /// <exception cref="HexConverterBufferCapacityException"></exception>
         public static int GetHex(ReadOnlySpan<byte> source, Span<char> buffer)
