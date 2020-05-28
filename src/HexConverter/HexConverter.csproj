@@ -13,7 +13,7 @@
         <RepositoryUrl>https://github.com/faustodavid/HexConverter</RepositoryUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.0.1</PackageVersion>
         <PackageReleaseNotes></PackageReleaseNotes>
         <Copyright>Copyright © Fausto David Suarez Rosario 2020</Copyright>
         <PackageProjectUrl>https://github.com/faustodavid/HexConverter</PackageProjectUrl>
