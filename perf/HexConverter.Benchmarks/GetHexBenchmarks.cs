@@ -7,6 +7,7 @@ using BenchmarkDotNet.Attributes;
 namespace HexConverter.Benchmarks
 {
     [MemoryDiagnoser]
+    [MarkdownExporterAttribute.GitHub]
     public class GetHexBenchmarks
     {
         private byte[] s_fakeHexBytes = Array.Empty<byte>();

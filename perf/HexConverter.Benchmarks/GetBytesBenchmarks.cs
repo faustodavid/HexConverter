@@ -7,6 +7,7 @@ using BenchmarkDotNet.Attributes;
 namespace HexConverter.Benchmarks
 {
     [MemoryDiagnoser]
+    [MarkdownExporterAttribute.GitHub]
     public class GetBytesBenchmarks
     {
         [Params(4, 20)] 
