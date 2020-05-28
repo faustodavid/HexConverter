@@ -3,6 +3,10 @@ using System.Buffers;
 
 namespace HexConverter
 {
+    /// <summary>
+    /// Wrapper on top of a rented array. It make it easy to return to the pool.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public readonly struct RentedArraySegmentWrapper<T> : IDisposable
     {
         public ArraySegment<T> ArraySegment { get; }
