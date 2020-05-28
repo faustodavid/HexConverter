@@ -63,10 +63,10 @@ namespace HexConverter
             return bytes.Length * 2;
         }
 
-        public static string GetHex(ReadOnlySpan<byte> bytes)
+        public static string GetHex(ReadOnlySpan<byte> source)
         {
             ArrayPool<char> arrayPool = ArrayPool<char>.Shared;
-            var requiredBufferSize = GetCharsCount(bytes);
+            var requiredBufferSize = GetCharsCount(source);
             char[]? disposableBuffer = null;
 
             var buffer = requiredBufferSize > 128
@@ -75,7 +75,7 @@ namespace HexConverter
 
             try
             {
-                GetHex(bytes, buffer);
+                GetHex(source, buffer);
                 return buffer.ToString();
             }
             finally
@@ -93,20 +93,20 @@ namespace HexConverter
             return new RentedArraySegmentWrapper<char>(new ArraySegment<char>(buffer, 0, count), arrayPool);
         }
 
-        public static int GetHex(ReadOnlySpan<byte> bytes, Span<char> buffer)
+        public static int GetHex(ReadOnlySpan<byte> source, Span<char> buffer)
         {
-            var cx = 0;
+            var indexOnBuffer = 0;
 
-            for (var bx = 0; bx < bytes.Length; ++bx, ++cx)
+            for (var indexOnSource = 0; indexOnSource < source.Length; ++indexOnSource, ++indexOnBuffer)
             {
-                var b = (byte) (bytes[bx] >> 4);
-                buffer[cx] = (char) (b > 9 ? b + 0x37 + 0x20 : b + 0x30);
+                var b = (byte) (source[indexOnSource] >> 4);
+                buffer[indexOnBuffer] = (char) (b > 9 ? b + 0x37 + 0x20 : b + 0x30);
 
-                b = (byte) (bytes[bx] & 0x0F);
-                buffer[++cx] = (char) (b > 9 ? b + 0x37 + 0x20 : b + 0x30);
+                b = (byte) (source[indexOnSource] & 0x0F);
+                buffer[++indexOnBuffer] = (char) (b > 9 ? b + 0x37 + 0x20 : b + 0x30);
             }
 
-            return cx;
+            return indexOnBuffer;
         }
     }
 }
