@@ -67,7 +67,7 @@ namespace HexConverter
         {
             ArrayPool<char> arrayPool = ArrayPool<char>.Shared;
             var requiredBufferSize = GetCharsCount(bytes);
-            char[] disposableBuffer = null;
+            char[]? disposableBuffer = null;
 
             var buffer = requiredBufferSize > 128
                 ? disposableBuffer = arrayPool.Rent(requiredBufferSize)
@@ -89,7 +89,7 @@ namespace HexConverter
             ArrayPool<char> arrayPool = ArrayPool<char>.Shared;
             var requiredBufferSize = GetCharsCount(bytes);
             char[] buffer = arrayPool.Rent(requiredBufferSize);
-            int count = GetHex(bytes, buffer);
+            var count = GetHex(bytes, buffer);
             return new RentedArraySegmentWrapper<char>(new ArraySegment<char>(buffer, 0, count), arrayPool);
         }
 
