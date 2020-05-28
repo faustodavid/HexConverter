@@ -40,14 +40,14 @@ namespace HexConverter.Benchmarks
         }
 
         [Benchmark]
-        public int HexConverterGetBytes()
+        public int GetBytes()
         {
             string hex = s_fakeHex;
             return HexConverter.GetBytes(hex).Length;
         }
         
         [Benchmark]
-        public int HexConverterGetBytesBuffered()
+        public int GetBytesBuffered()
         {
             ArrayPool<byte> arrayPool = ArrayPool<byte>.Shared;
             string hex = s_fakeHex;
@@ -68,7 +68,7 @@ namespace HexConverter.Benchmarks
         }
         
         [Benchmark]
-        public int HexConverterGetBytesPooled()
+        public int GetBytesPooled()
         {
             string hex = s_fakeHex;
             using var bytes = HexConverter.GetBytesPooled(hex);

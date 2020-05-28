@@ -45,7 +45,7 @@ namespace HexConverter.Benchmarks
         [Benchmark]
         public int BitConverterGetString()
         {
-            return BitConverter.ToString(s_fakeHexBytes).Replace(" ", "").Length;
+            return BitConverter.ToString(s_fakeHexBytes).Replace("-", "").Length;
         }
         
         [Benchmark]
