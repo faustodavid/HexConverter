@@ -1,5 +1,4 @@
 using System;
-using System.Buffers;
 using System.Linq;
 using System.Text;
 using Xunit;
@@ -27,11 +26,14 @@ namespace HexConverter.UnitTests
             byte[] expectedTextInBytes = Encoding.UTF8.GetBytes(text);
             string hexText = string.Concat(expectedTextInBytes.Select(b => b.ToString("x2")));
 
-            byte[] buffer = ArrayPool<byte>.Shared.Rent(HexConverter.GetBytesCount(hexText));
+            Span<byte> buffer = stackalloc byte[HexConverter.GetBytesCount(hexText)];
             int count = HexConverter.GetBytes(hexText, buffer);
 
             Assert.Equal(expectedTextInBytes.Length, count);
-            Assert.Equal(expectedTextInBytes, new ArraySegment<byte>(buffer, 0, count));
+            for (var index = 0; index < expectedTextInBytes.Length; index++)
+            {
+               Assert.Equal(expectedTextInBytes[index], buffer[index]);
+            }
         }
 
         [Fact]
@@ -73,11 +75,11 @@ namespace HexConverter.UnitTests
                 .Select(x => Convert.ToByte(expectedHexText.Substring(x, 2), 16))
                 .ToArray();
 
-            char[] buffer = ArrayPool<char>.Shared.Rent(HexConverter.GetCharsCount(hexInBytes));
+           Span<char> buffer = stackalloc char[HexConverter.GetCharsCount(hexInBytes)];
             int count = HexConverter.GetHex(hexInBytes, buffer);
             
             Assert.Equal(expectedHexText.Length, count);
-            Assert.Equal(expectedHexText, buffer.AsSpan(0, count).ToString());
+            Assert.Equal(expectedHexText, buffer.Slice(0, count).ToString());
         }
         
         [Fact]
