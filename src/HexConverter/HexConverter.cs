@@ -6,21 +6,22 @@ namespace HexConverter
 {
     public static class HexConverter
     {
-        public static int GetBytesCount(ReadOnlySpan<char> src)
+        public static int GetBytesCount(ReadOnlySpan<char> source)
         {
-            return src.Length / 2;
+            return source.Length / 2;
         }
 
         public static byte[] GetBytes(ReadOnlySpan<char> source)
         {
             byte[] buffer = new byte[GetBytesCount(source)];
             GetBytes(source, buffer);
+            
             return buffer;
         }
 
         public static int GetBytes(ReadOnlySpan<char> source, Span<byte> buffer)
         {
-            if (source.Length % 2 != 0) throw new HexConverterInvalidLengthException();
+            if (source.Length % 2 != 0) throw new HexConverterInvalidSourceLengthException();
 
             var requiredBufferSize = source.Length / 2;
             var indexOnBuffer = requiredBufferSize;
@@ -52,9 +53,12 @@ namespace HexConverter
 
         public static RentedArraySegmentWrapper<byte> GetBytesPooled(ReadOnlySpan<char> source)
         {
+            if(source.Length == 0) throw new HexConverterInvalidSourceLengthException();
+            
             ArrayPool<byte> arrayPool = ArrayPool<byte>.Shared;
             byte[] buffer = arrayPool.Rent(GetBytesCount(source));
             var count = GetBytes(source, buffer);
+            
             return new RentedArraySegmentWrapper<byte>(new ArraySegment<byte>(buffer, 0, count), arrayPool);
         }
 
@@ -65,6 +69,8 @@ namespace HexConverter
 
         public static string GetHex(ReadOnlySpan<byte> source)
         {
+            if(source.Length == 0) throw new HexConverterInvalidSourceLengthException();
+            
             ArrayPool<char> arrayPool = ArrayPool<char>.Shared;
             var requiredBufferSize = GetCharsCount(source);
             char[]? disposableBuffer = null;
@@ -84,17 +90,23 @@ namespace HexConverter
             }
         }
 
-        public static RentedArraySegmentWrapper<char> GetHexPooled(ReadOnlySpan<byte> bytes)
+        public static RentedArraySegmentWrapper<char> GetHexPooled(ReadOnlySpan<byte> source)
         {
+            if(source.Length == 0) throw new HexConverterInvalidSourceLengthException();
+            
             ArrayPool<char> arrayPool = ArrayPool<char>.Shared;
-            var requiredBufferSize = GetCharsCount(bytes);
+            var requiredBufferSize = GetCharsCount(source);
             char[] buffer = arrayPool.Rent(requiredBufferSize);
-            var count = GetHex(bytes, buffer);
+            var count = GetHex(source, buffer);
+            
             return new RentedArraySegmentWrapper<char>(new ArraySegment<char>(buffer, 0, count), arrayPool);
         }
 
         public static int GetHex(ReadOnlySpan<byte> source, Span<char> buffer)
         {
+            if(source.Length == 0) throw new HexConverterInvalidSourceLengthException();
+            if(buffer.Length < GetCharsCount(source)) throw new HexConverterBufferCapacityException();
+            
             var indexOnBuffer = 0;
 
             for (var indexOnSource = 0; indexOnSource < source.Length; ++indexOnSource, ++indexOnBuffer)
