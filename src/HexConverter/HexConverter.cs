@@ -102,12 +102,12 @@ namespace HexConverter
         }
 
         /// <summary>
-        /// Get hexadecimal from bytes
+        /// Get hexadecimal string from bytes
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
         /// <exception cref="HexConverterInvalidSourceLengthException"></exception>
-        public static string GetHex(ReadOnlySpan<byte> source)
+        public static string GetString(ReadOnlySpan<byte> source)
         {
             if (source.Length == 0) throw new HexConverterInvalidSourceLengthException();
 
@@ -121,7 +121,7 @@ namespace HexConverter
 
             try
             {
-                GetHex(source, buffer);
+                GetChars(source, buffer);
                 return buffer.ToString();
             }
             finally
@@ -137,14 +137,14 @@ namespace HexConverter
         /// <param name="source"></param>
         /// <returns>Chars on a disposable wrapper to return to array to the pool when dispose</returns>
         /// <exception cref="HexConverterInvalidSourceLengthException"></exception>
-        public static RentedArraySegmentWrapper<char> GetHexPooled(ReadOnlySpan<byte> source)
+        public static RentedArraySegmentWrapper<char> GetCharsPooled(ReadOnlySpan<byte> source)
         {
             if (source.Length == 0) throw new HexConverterInvalidSourceLengthException();
 
             ArrayPool<char> arrayPool = ArrayPool<char>.Shared;
             var requiredBufferSize = GetCharsCount(source);
             char[] buffer = arrayPool.Rent(requiredBufferSize);
-            var count = GetHex(source, buffer);
+            var count = GetChars(source, buffer);
 
             return new RentedArraySegmentWrapper<char>(new ArraySegment<char>(buffer, 0, count), arrayPool);
         }
@@ -157,7 +157,7 @@ namespace HexConverter
         /// <returns></returns>
         /// <exception cref="HexConverterInvalidSourceLengthException"></exception>
         /// <exception cref="HexConverterBufferCapacityException"></exception>
-        public static int GetHex(ReadOnlySpan<byte> source, Span<char> buffer)
+        public static int GetChars(ReadOnlySpan<byte> source, Span<char> buffer)
         {
             if (source.Length == 0) throw new HexConverterInvalidSourceLengthException();
             if (buffer.Length < GetCharsCount(source)) throw new HexConverterBufferCapacityException();

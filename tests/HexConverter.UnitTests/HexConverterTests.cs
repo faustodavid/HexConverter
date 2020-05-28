@@ -59,7 +59,7 @@ namespace HexConverter.UnitTests
                 .Select(x => Convert.ToByte(expectedHexText.Substring(x, 2), 16))
                 .ToArray();
 
-            string actual = HexConverter.GetHex(hexInBytes);
+            string actual = HexConverter.GetString(hexInBytes);
             
             Assert.Equal(expectedHexText, actual);
         }
@@ -76,7 +76,7 @@ namespace HexConverter.UnitTests
                 .ToArray();
 
            Span<char> buffer = stackalloc char[HexConverter.GetCharsCount(hexInBytes)];
-            int count = HexConverter.GetHex(hexInBytes, buffer);
+            int count = HexConverter.GetChars(hexInBytes, buffer);
             
             Assert.Equal(expectedHexText.Length, count);
             Assert.Equal(expectedHexText, buffer.Slice(0, count).ToString());
@@ -93,7 +93,7 @@ namespace HexConverter.UnitTests
                 .Select(x => Convert.ToByte(expectedHexText.Substring(x, 2), 16))
                 .ToArray();
 
-            using RentedArraySegmentWrapper<char> actual = HexConverter.GetHexPooled(hexInBytes);
+            using RentedArraySegmentWrapper<char> actual = HexConverter.GetCharsPooled(hexInBytes);
             
             Assert.Equal(expectedHexText.Length, actual.ArraySegment.Count);
             Assert.Equal(expectedHexText, actual.ArraySegment.AsSpan().ToString());
