@@ -44,7 +44,7 @@ bytes[] bytes = HexConverter.GetBytes(hexString);
 */
 ```
 
-**Using HexConverter with pooled array to avoid heap allocations**
+**Using HexConverter with pooled array**
 
 Zero allocation, and easy to use. Optimise for strings longer than 100 characters.
 ```csharp
@@ -56,7 +56,7 @@ using var pooledBytes = HexConverter.GetBytesPooled(hexString);
 */
 ```
 
-**Using HexConverter with stackalloc buffer to work with small hex strings**
+**Using HexConverter with stackalloc buffer**
 
 Zero allocation, and optimise for small hex string.
 ```csharp
@@ -70,8 +70,9 @@ int count = HexConverter.GetBytes(hexString, buffer);
 ```
 
 ### Byte array to hexadecimal string
-With this linq implementation you have allocation for the intermidiate array, and a string per each byte and the a new one for the final string.
 **Using Linq**
+
+With this linq implementation you have allocation for the intermidiate array, and a string per each byte and the a new one for the final string.
 ```csharp
 byte[] vals = { 0x01, 0xAA, 0xB1, 0xDC, 0x10, 0xDD };
 string str = string.Concat(vals.Select(b => b.ToString("x2")));
@@ -95,7 +96,7 @@ Console.WriteLine(str);
  */
 ```
 
-**Using HexConverter with stackalloc buffer to work with small hex strings**
+**Using HexConverter with pooled array**
 
 Zero allocation, and easy to use. Optimise for array longer than 100 items.
 ```csharp
@@ -108,7 +109,7 @@ Console.WriteLine(pooledChars.ArraySegment.AsSpan());
  */
 ```
 
-**Using HexConverter with stackalloc buffer to work with small byte array**
+**Using HexConverter with stackalloc buffer**
 
 Zero allocation, and optimise for small byte arrays.
 ```csharp
