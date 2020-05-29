@@ -42,6 +42,8 @@ bytes[] bytes = HexConverter.GetBytes(hexString);
 */
 ```
 
+You get just the allocation for the final array.
+
 **Using HexConverter with pooled array to avoid heap allocations**
 ```csharp
 string hexString = "01AAB1DC10DD";
