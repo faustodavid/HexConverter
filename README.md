@@ -123,7 +123,7 @@ Console.WriteLine(buffer.AsSpan());
 
 Zero allocation, and optimise for small byte arrays.
 
-## BenchmarksLower is better
+## Benchmarks
 Lower is better
 <img src="https://github.com/faustodavid/HexConverter/raw/master/perf/docs/results/BytesToHex.png" />
 
