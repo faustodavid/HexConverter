@@ -1,6 +1,7 @@
 # HexConverter
 High-Performance hexadecimal converter with support of `Span<T>` and buffering.
 
+![.NET Core](https://github.com/faustodavid/HexConverter/workflows/.NET%20Core/badge.svg?branch=master)
 [![Nuget](https://img.shields.io/nuget/v/HexConverter)](https://www.nuget.org/packages/HexConverter/)
 
 ## Installation
