@@ -118,7 +118,7 @@ Console.WriteLine(buffer.AsSpan());
  */
 ```
 
-## BenchmarksLower is better
+## Benchmarks
 Lower is better
 <img src="https://github.com/faustodavid/HexConverter/raw/master/perf/docs/results/BytesToHex.png" />
 
