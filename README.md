@@ -3,6 +3,15 @@ High-Performance hexadecimal converter with support of `Span<T>` and buffering.
 
 [![Nuget](https://img.shields.io/nuget/v/HexConverter)](https://www.nuget.org/packages/HexConverter/)
 
+## Installation
+
+Available on [nuget](https://www.nuget.org/packages/HexConverter/)
+
+	PM> Install-Package HexConverter
+
+Requirements:
+* System.Memory (>= 4.5.3)
+
 ## Why?
 Dotnet core implementation do not take advantage of `Span<T>` to slice the memory without allocations and don't use stackalloc/pooled memory to avoid heap allocations, making the code slow.
 
@@ -29,3 +38,10 @@ Console.WriteLine(str);
  */
 ```
 
+## BenchmarksLower is better
+Lower is better
+<img src="https://github.com/faustodavid/HexConverter/raw/master/perf/docs/results/BytesToHex.png" />
+
+
+Lower is better
+<img src="https://github.com/faustodavid/HexConverter/raw/master/perf/docs/results/HexToBytes.png" />
