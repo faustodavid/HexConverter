@@ -12,7 +12,8 @@ Using HexConverter
 ```csharp
 string hexString = "01AAB1DC10DD";
 bytes[] bytes = HexConverter.GetBytes(hexString);
-*/bytes value:
+
+/*bytes items:
 { 0x01, 0xAA, 0xB1, 0xDC, 0x10, 0xDD }
 */
 ```
