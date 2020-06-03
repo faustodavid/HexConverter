@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace HexConverter.UnitTests
+namespace Numeral.UnitTests
 {
     public class HexConverterTests
     {

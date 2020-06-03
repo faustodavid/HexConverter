@@ -17,6 +17,7 @@
         <PackageReleaseNotes></PackageReleaseNotes>
         <Copyright>Copyright © Fausto David Suarez Rosario 2020</Copyright>
         <PackageProjectUrl>https://github.com/faustodavid/HexConverter</PackageProjectUrl>
+        <RootNamespace>Numeral</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

@@ -1,7 +1,7 @@
 using System;
 using System.Buffers;
 
-namespace HexConverter
+namespace Numeral
 {
     /// <summary>
     /// Wrapper on top of a rented array. It make it easy to return to the pool.

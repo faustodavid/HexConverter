@@ -1,6 +1,6 @@
 using System;
 
-namespace HexConverter.Exceptions
+namespace Numeral.Exceptions
 {
     public class HexConverterBufferCapacityException : Exception
     {

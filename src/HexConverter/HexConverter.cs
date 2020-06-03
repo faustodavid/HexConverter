@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Buffers;
-using HexConverter.Exceptions;
+using Numeral.Exceptions;
 
-namespace HexConverter
+namespace Numeral
 {
     /// <summary>
     /// High-performance Hexadecimal converter

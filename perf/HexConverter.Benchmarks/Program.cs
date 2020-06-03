@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace HexConverter.Benchmarks
+namespace Numeral.Benchmarks
 {
     class Program
     {
