@@ -126,8 +126,8 @@ Console.WriteLine(buffer.AsSpan());
 
 ## Benchmarks
 Lower is better
-<img src="https://github.com/faustodavid/HexConverter/raw/master/perf/docs/results/BytesToHex.png" />
+<img src="https://github.com/faustodavid/HexConverter/raw/main/perf/docs/results/BytesToHex.png" />
 
 
 Lower is better
-<img src="https://github.com/faustodavid/HexConverter/raw/master/perf/docs/results/HexToBytes.png" />
+<img src="https://github.com/faustodavid/HexConverter/raw/main/perf/docs/results/HexToBytes.png" />
