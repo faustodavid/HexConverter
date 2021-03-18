@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text;
+using AutoFixture;
 using Xunit;
 
 namespace Numeral.UnitTests
@@ -48,10 +49,12 @@ namespace Numeral.UnitTests
             Assert.Equal(expectedTextInBytes, actual.ArraySegment);
         }
 
-        [Fact]
-        public void GetHex_from_valid_bytes_base_16_returns_hex()
+        [Theory]
+        [InlineData(50)]
+        [InlineData(500)]
+        public void GetHex_from_valid_bytes_base_16_returns_hex(int textLength)
         {
-            string text = Guid.NewGuid().ToString();
+            string text = new string(new Fixture().CreateMany<char>(textLength).ToArray());
             byte[] expectedTextInBytes = Encoding.UTF8.GetBytes(text);
             string expectedHexText = string.Concat(expectedTextInBytes.Select(b => b.ToString("x2")));
             byte[] hexInBytes = Enumerable.Range(0, expectedHexText.Length)

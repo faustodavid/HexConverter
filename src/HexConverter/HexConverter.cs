@@ -111,22 +111,27 @@ namespace Numeral
         {
             if (source.Length == 0) throw new HexConverterInvalidSourceLengthException();
 
-            ArrayPool<char> arrayPool = ArrayPool<char>.Shared;
             var requiredBufferSize = GetCharsCount(source);
-            char[]? disposableBuffer = null;
 
-            var buffer = requiredBufferSize > 128
-                ? disposableBuffer = arrayPool.Rent(requiredBufferSize)
-                : stackalloc char[requiredBufferSize];
-
-            try
+            if (requiredBufferSize > 128)
             {
+                ArrayPool<char> arrayPool = ArrayPool<char>.Shared;
+                var buffer = arrayPool.Rent(requiredBufferSize);
+                try
+                {
+                    var lastIndex = GetChars(source, buffer);
+                    return buffer.AsSpan(0, lastIndex).ToString();
+                }
+                finally
+                {
+                    arrayPool.Return(buffer);
+                }
+            }
+            else
+            {
+                Span<char> buffer = stackalloc char[requiredBufferSize];
                 GetChars(source, buffer);
                 return buffer.ToString();
-            }
-            finally
-            {
-                if (!(disposableBuffer is null)) arrayPool.Return(disposableBuffer);
             }
         }
         
